@@ -1,0 +1,47 @@
+# WagmiConfig
+
+The `WagmiConfig` manages configuration for all hooks using [React Context](https://reactjs.org/docs/context.html).
+
+```ts
+import { WagmiConfig } from 'wagmi'
+```
+
+## Usage
+
+```tsx
+import { WagmiConfig } from 'wagmi'
+
+function App() {
+  return (
+    <WagmiConfig>
+      <YourRoutes />
+    </WagmiConfig>
+  )
+}
+```
+
+## Configuration
+
+### client (optional)
+
+A wagmi [`Client`](/docs/client) instance that consists of configuration options. Defaults to `createClient()`.
+
+```tsx {4-9,13}
+import { providers } from 'ethers'
+import { WagmiConfig, createClient } from 'wagmi'
+
+const client = createClient({
+  autoConnect: true,
+  provider(config) {
+    return new providers.AlchemyProvider(config.chainId, 'Your Alchemy ID')
+  },
+})
+
+function App() {
+  return (
+    <WagmiConfig client={client}>
+      <YourRoutes />
+    </WagmiConfig>
+  )
+}
+```
